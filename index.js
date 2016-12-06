@@ -1247,7 +1247,7 @@ app.get('/trip/travellers', auth, function (req, res)
     console.log(req.body);
     var user = basicAuth(req);
 
-    Trip.find({'travellers': user.name, 'statusMode': {$eq: 1}}, 'travellers', function (err, coTravellers)
+    Trip.find({'travellers': user.name}, 'travellers', function (err, coTravellers)
     {
         if (err)
         {
@@ -1260,7 +1260,7 @@ app.get('/trip/travellers', auth, function (req, res)
                 var myTravellers = [];
                 for (var i = 0; i < coTravellers[0].travellers.length; i++)
                 {
-                    if(coTravellers[0].travellers[i] !== user.name)
+                    if(coTravellers[0].travellers[i] !== user.name && coTravellers[0].statusMode[i] !== 2)
                     {
                         myTravellers.push(coTravellers[0].travellers[i]);
                     }
